@@ -1,0 +1,11 @@
+# Ustawienie dla wszystkich plików tekstowych
+* text=auto
+
+# Ustawienie dla specyficznych typów plików na LF
+*.cjs text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.jsx text eol=lf
+*.js text eol=lf
+*.css text eol=lf
