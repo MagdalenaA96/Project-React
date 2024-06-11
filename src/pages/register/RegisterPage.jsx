@@ -54,6 +54,11 @@ export const RegisterPage = () => {
                         value: 8,
                         message: "Minimum sign length is 8",
                     },
+                    pattern: {
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+                        message:
+                            "Password requires upper, lower, and special character",
+                    },
                     required: "This field is required",
                 }}
                 render={({ field, fieldState }) => (
