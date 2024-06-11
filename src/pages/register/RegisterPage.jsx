@@ -1,4 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 const defaultValues = {
     email: "",
@@ -7,6 +8,8 @@ const defaultValues = {
 };
 
 export const RegisterPage = () => {
+    const navigate = useNavigate();
+
     const { control, watch, handleSubmit } = useForm({
         defaultValues,
         mode: "onBlur",
@@ -22,6 +25,7 @@ export const RegisterPage = () => {
 
     const onRegister = (formData) => {
         console.log(formData);
+        navigate("/login");
     };
 
     return (
@@ -41,7 +45,7 @@ export const RegisterPage = () => {
                     <div>
                         <input type="email" placeholder="E-mail" {...field} />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}
@@ -55,9 +59,9 @@ export const RegisterPage = () => {
                         message: "Minimum sign length is 8",
                     },
                     pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9])/,
                         message:
-                            "Password requires upper, lower, and special character",
+                            "Password requires upper, lower, special character and number",
                     },
                     required: "This field is required",
                 }}
@@ -69,7 +73,7 @@ export const RegisterPage = () => {
                             {...field}
                         />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}
@@ -93,7 +97,7 @@ export const RegisterPage = () => {
                             {...field}
                         />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}
@@ -101,7 +105,7 @@ export const RegisterPage = () => {
             <button onClick={handleSubmit(onRegister)}>
                 CREATE AN ACCOUNT
             </button>
-            <p>Log in</p>
+            <Link to="/login">Log in</Link>
         </div>
     );
 };

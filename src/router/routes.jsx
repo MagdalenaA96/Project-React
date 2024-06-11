@@ -1,12 +1,16 @@
-import { LoginPage, RegisterPage } from "../pages";
+import { LoginPage, RegisterPage, ResetPage } from "../pages";
 
 export const routes = [
     {
-        path: "/",
+        path: "/login",
         element: <LoginPage />,
     },
     {
         path: "/register",
         element: <RegisterPage />,
+    },
+    {
+        path: "/reset-password",
+        element: <ResetPage />,
     },
 ];

@@ -1,6 +1,9 @@
 import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export const ResetPage = () => {
+    const navigate = useNavigate();
+
     const { control, handleSubmit } = useForm({
         defaultValues: { email: "" },
         mode: "onBlur",
@@ -8,6 +11,7 @@ export const ResetPage = () => {
 
     const onReset = (formData) => {
         console.log(formData);
+        navigate("/login")
     };
 
     return (
@@ -27,7 +31,7 @@ export const ResetPage = () => {
                     <div>
                         <input type="email" placeholder="E-mail" {...field} />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}

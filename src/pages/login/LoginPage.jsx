@@ -1,4 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const defaultValues = {
     email: "",
@@ -32,7 +33,7 @@ export const LoginPage = () => {
                     <div>
                         <input type="email" placeholder="E-mail" {...field} />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}
@@ -55,14 +56,14 @@ export const LoginPage = () => {
                             {...field}
                         />
                         {fieldState?.error?.message && (
-                            <span>{fieldState.error.message}</span>
+                            <p>{fieldState.error.message}</p>
                         )}
                     </div>
                 )}
             />
             <button onClick={handleSubmit(onLogin)}>LOG IN</button>
-            <p>Create account</p>
-            <p>Forgot password</p>
+            <Link to="/register">Create account</Link>
+            <Link to="/reset-password">Forgot password</Link>
         </div>
     );
 };
