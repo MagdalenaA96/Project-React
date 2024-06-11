@@ -2,12 +2,12 @@ import { LoginPage } from "./pages/login";
 import { RegisterPage } from "./pages";
 import { ResetPage } from "./pages/reset/ResetPage";
 import { UsersPage } from "./pages/users/UsersPage";
-import { Router } from "./router/Router";
+import { Router } from "./router";
 
 function App() {
     return (
         <div>
-            <Router/>
+            <Router />
         </div>
     );
 }
