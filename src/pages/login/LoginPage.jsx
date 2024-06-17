@@ -1,5 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserStore } from "../../store/useUserStore";
 
 const defaultValues = {
     email: "",
@@ -7,13 +8,17 @@ const defaultValues = {
 };
 
 export const LoginPage = () => {
+    const setUser = useUserStore((state) => state.setUser);
+    const navigate = useNavigate();
+
     const { control, handleSubmit } = useForm({
         defaultValues,
         mode: "onBlur",
     });
 
     const onLogin = (formData) => {
-        console.log(formData);
+        setUser(formData.email);
+        navigate("/dashboard");
     };
 
     return (
