@@ -1,5 +1,10 @@
 import { useForm, Controller } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const defaultValues = {
     email: "",
@@ -10,10 +15,12 @@ const defaultValues = {
 export const RegisterPage = () => {
     const navigate = useNavigate();
 
-    const { control, watch, handleSubmit } = useForm({
+    const { control, watch, handleSubmit, formState } = useForm({
         defaultValues,
         mode: "onBlur",
     });
+
+    const { isValid, isDirty } = formState;
 
     const validatePasswordMatch = (value) => {
         const password = watch("password");
@@ -29,8 +36,8 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div>
-            <h1>Sign Up</h1>
+        <StyledDiv>
+            <Typography variant="h1">Sign Up</Typography>
             <Controller
                 name="email"
                 control={control}
@@ -42,12 +49,25 @@ export const RegisterPage = () => {
                     required: "This field is required",
                 }}
                 render={({ field, fieldState }) => (
-                    <div>
-                        <input type="email" placeholder="E-mail" {...field} />
-                        {fieldState?.error?.message && (
-                            <p>{fieldState.error.message}</p>
-                        )}
-                    </div>
+                    <Box
+                        component="form"
+                        sx={{
+                            "& > :not(style)": { width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            label="E-mail"
+                            variant="filled"
+                            type="email"
+                            error={!!fieldState.error}
+                            helperText={
+                                fieldState?.error && fieldState.error.message
+                            }
+                            {...field}
+                        />
+                    </Box>
                 )}
             />
             <Controller
@@ -66,16 +86,25 @@ export const RegisterPage = () => {
                     required: "This field is required",
                 }}
                 render={({ field, fieldState }) => (
-                    <div>
-                        <input
+                    <Box
+                        component="form"
+                        sx={{
+                            "& > :not(style)": { width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            label="Password"
+                            variant="filled"
                             type="password"
-                            placeholder="Password"
+                            error={!!fieldState.error}
+                            helperText={
+                                fieldState?.error && fieldState.error.message
+                            }
                             {...field}
                         />
-                        {fieldState?.error?.message && (
-                            <p>{fieldState.error.message}</p>
-                        )}
-                    </div>
+                    </Box>
                 )}
             />
             <Controller
@@ -90,22 +119,61 @@ export const RegisterPage = () => {
                     validate: validatePasswordMatch,
                 }}
                 render={({ field, fieldState }) => (
-                    <div>
-                        <input
+                    <Box
+                        component="form"
+                        sx={{
+                            "& > :not(style)": { width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            label="Confirm Password"
+                            variant="filled"
                             type="password"
-                            placeholder="Confirm Password"
+                            error={!!fieldState.error}
+                            helperText={
+                                fieldState?.error && fieldState.error.message
+                            }
                             {...field}
                         />
-                        {fieldState?.error?.message && (
-                            <p>{fieldState.error.message}</p>
-                        )}
-                    </div>
+                    </Box>
                 )}
             />
-            <button onClick={handleSubmit(onRegister)}>
+            <StyledButton
+                variant={"contained"}
+                onClick={handleSubmit(onRegister)}
+                disabled={!(isDirty && isValid)}
+            >
                 CREATE AN ACCOUNT
-            </button>
-            <Link to="/login">Log in</Link>
-        </div>
+            </StyledButton>
+            <LinkPlace>
+                <Link to="/login">Log in</Link>
+            </LinkPlace>
+        </StyledDiv>
     );
 };
+
+const LinkPlace = styled.div`
+    display: flex;
+    justify-content: center;
+    a {
+        color: ${(props) => props.theme.palette.primary.main};
+    }
+`;
+
+const StyledDiv = styled.div`
+    width: 480px;
+    padding: 16px;
+`;
+
+const StyledButton = styled(Button)`
+    background-color: ${(props) =>
+        props.disabled
+            ? props.theme.palette.action.disabledBackground
+            : props.theme.palette.primary.main};
+    color: ${(props) =>
+        props.disabled ? "black" : props.theme.palette.primary.contrastText};
+    width: 100%;
+    margin: 8px 0 24px;
+`;

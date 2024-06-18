@@ -42,6 +42,15 @@ let theme = createTheme({
             fontWeight: 400,
             letterSpacing: 0.25,
             lineHeight: 1.235,
+            marginBottom: 24,
+        },
+        h2: {
+            color: "rgb(255, 255, 255)",
+            fontSize: 24,
+            fontWeight: 400,
+            letterSpacing: 0,
+            lineHeight: 1.334,
+            textAlign: "center",
         },
     },
 
@@ -50,6 +59,7 @@ let theme = createTheme({
             styleOverrides: {
                 root: {
                     borderBottomColor: "rgba(255, 255, 255, 0.42)",
+                    margin: "0 0 16px",
                 },
             },
         },

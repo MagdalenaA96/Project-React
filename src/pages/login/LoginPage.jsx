@@ -45,7 +45,7 @@ export const LoginPage = () => {
                     <Box
                         component="form"
                         sx={{
-                            "& > :not(style)": { marginY: 1, width: "100%" },
+                            "& > :not(style)": { width: "100%" },
                         }}
                         noValidate
                         autoComplete="off"
@@ -77,7 +77,7 @@ export const LoginPage = () => {
                     <Box
                         component="form"
                         sx={{
-                            "& > :not(style)": { marginY: 1, width: "100%" },
+                            "& > :not(style)": { width: "100%" },
                         }}
                         noValidate
                         autoComplete="off"
@@ -124,6 +124,7 @@ const StyledButton = styled(Button)`
     color: ${(props) =>
         props.disabled ? "black" : props.theme.palette.primary.contrastText};
     width: 100%;
+    margin: 8px 0 24px;
 `;
 
 const LinksPlace = styled.div`
