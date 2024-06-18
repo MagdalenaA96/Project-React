@@ -1,6 +1,11 @@
 import { useForm, Controller } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/useUserStore";
+import styled from "@emotion/styled";
+import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const defaultValues = {
     email: "",
@@ -11,10 +16,12 @@ export const LoginPage = () => {
     const setUser = useUserStore((state) => state.setUser);
     const navigate = useNavigate();
 
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, formState } = useForm({
         defaultValues,
         mode: "onBlur",
     });
+
+    const { isValid, isDirty } = formState;
 
     const onLogin = (formData) => {
         setUser(formData.email);
@@ -22,8 +29,8 @@ export const LoginPage = () => {
     };
 
     return (
-        <div>
-            <h1>Log in</h1>
+        <StyledDiv>
+            <Typography variant="h1">Log in</Typography>
             <Controller
                 name="email"
                 rules={{
@@ -35,12 +42,25 @@ export const LoginPage = () => {
                 }}
                 control={control}
                 render={({ field, fieldState }) => (
-                    <div>
-                        <input type="email" placeholder="E-mail" {...field} />
-                        {fieldState?.error?.message && (
-                            <p>{fieldState.error.message}</p>
-                        )}
-                    </div>
+                    <Box
+                        component="form"
+                        sx={{
+                            "& > :not(style)": { marginY: 1, width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            label="E-mail"
+                            variant="filled"
+                            type="email"
+                            error={!!fieldState.error}
+                            helperText={
+                                fieldState?.error && fieldState.error.message
+                            }
+                            {...field}
+                        />
+                    </Box>
                 )}
             />
             <Controller
@@ -54,21 +74,62 @@ export const LoginPage = () => {
                 }}
                 control={control}
                 render={({ field, fieldState }) => (
-                    <div>
-                        <input
+                    <Box
+                        component="form"
+                        sx={{
+                            "& > :not(style)": { marginY: 1, width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            label="Password"
+                            variant="filled"
                             type="password"
-                            placeholder="Password"
+                            error={!!fieldState.error}
+                            helperText={
+                                fieldState?.error && fieldState.error.message
+                            }
                             {...field}
                         />
-                        {fieldState?.error?.message && (
-                            <p>{fieldState.error.message}</p>
-                        )}
-                    </div>
+                    </Box>
                 )}
             />
-            <button onClick={handleSubmit(onLogin)}>LOG IN</button>
-            <Link to="/register">Create account</Link>
-            <Link to="/reset-password">Forgot password</Link>
-        </div>
+            <StyledButton
+                variant={"contained"}
+                onClick={handleSubmit(onLogin)}
+                disabled={!(isDirty && isValid)}
+            >
+                LOG IN
+            </StyledButton>
+            <LinksPlace>
+                <Link to="/register">Create account</Link>
+                <Link to="/reset-password">Forgot password</Link>
+            </LinksPlace>
+        </StyledDiv>
     );
 };
+
+const StyledDiv = styled.div`
+    width: 480px;
+    padding: 16px;
+    background-color: ${(props) => props.theme.palette.background.paper};
+`;
+
+const StyledButton = styled(Button)`
+    background-color: ${(props) =>
+        props.disabled
+            ? props.theme.palette.action.disabledBackground
+            : props.theme.palette.primary.main};
+    color: ${(props) =>
+        props.disabled ? "black" : props.theme.palette.primary.contrastText};
+    width: 100%;
+`;
+
+const LinksPlace = styled.div`
+    display: flex;
+    justify-content: space-between;
+    a {
+        color: ${(props) => props.theme.palette.primary.main};
+    }
+`;

@@ -1,9 +1,12 @@
 import { Router } from "./router";
+import { ThemeProvider } from "./providers/ThemeProvider"
 
 function App() {
     return (
         <div>
-            <Router />
+            <ThemeProvider>
+                <Router />
+            </ThemeProvider>
         </div>
     );
 }
