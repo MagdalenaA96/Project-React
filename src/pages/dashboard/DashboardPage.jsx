@@ -30,9 +30,11 @@ export const DashboardPage = () => {
     );
 };
 
-const StyledDiv = styled.div`display: flex;
+const StyledDiv = styled.div`
+    display: flex;
     flex-direction: column;
-    align-items: center; `
+    align-items: center;
+`;
 
 const FlexContainer = styled.div`
     width: 656px;

@@ -1,5 +1,5 @@
 import { Router } from "./router";
-import { ThemeProvider } from "./providers/ThemeProvider"
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 function App() {
     return (
