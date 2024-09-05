@@ -7,8 +7,13 @@ import {
     UsersPage,
 } from "../pages";
 import { ProcectedRoute } from "./ProtectedRoute";
+import { Navigate } from 'react-router-dom';
 
 export const routes = [
+    {
+        path: "/",
+        element: <Navigate to="/login" />,  
+    },
     {
         path: "/login",
         element: <LoginPage />,
