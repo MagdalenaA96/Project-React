@@ -13,7 +13,11 @@ const defaultValues = {
 };
 
 export const LoginPage = () => {
-    const setUser = useUserStore((state) => state.setUser);
+    const {setUser, error, setError} = useUserStore((state) => ({
+        setUser: state.setUser,
+        error: state.error,
+        setError: state.setError
+    }))
     const navigate = useNavigate();
 
     const { control, handleSubmit, formState } = useForm({
@@ -23,14 +27,27 @@ export const LoginPage = () => {
 
     const { isValid, isDirty } = formState;
 
+    const simulateLogin = (email, password) => {
+            return Math.random() > 0.2;
+        };
+
     const onLogin = (formData) => {
-        setUser(formData.email);
+        const loginSuccess = simulateLogin(formData.email, formData.password);
+
+        if (loginSuccess) {
+            setUser(formData.email);
         navigate("/dashboard");
+        } else {
+            setError("Something went wrong... Try again.")
+        }
+        
     };
 
     return (
         <StyledDiv>
-            <Typography variant="h1" sx={{ marginBottom: "24px" }}>Log in</Typography>
+            <Typography variant="h1" sx={{ marginBottom: "24px" }}>
+                Log in
+            </Typography>
             <Controller
                 name="email"
                 rules={{
@@ -95,6 +112,7 @@ export const LoginPage = () => {
                     </Box>
                 )}
             />
+            {error && <Typography color="error" sx={{display: "flex", justifyContent: "center"}}>{error}</Typography>}
             <StyledButton
                 variant={"contained"}
                 onClick={handleSubmit(onLogin)}
