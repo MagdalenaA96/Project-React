@@ -30,7 +30,7 @@ export const LoginPage = () => {
 
     return (
         <StyledDiv>
-            <Typography variant="h1">Log in</Typography>
+            <Typography variant="h1" sx={{ marginBottom: "24px" }}>Log in</Typography>
             <Controller
                 name="email"
                 rules={{

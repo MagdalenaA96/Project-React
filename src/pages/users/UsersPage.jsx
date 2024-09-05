@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography } from "@mui/material";
 import styled from "@emotion/styled";
+import { useAppBarState } from "../../contexts/appBarContext/useAppBarState";
 
 const URL = "https://jsonplaceholder.typicode.com/users";
 const columns = [
@@ -33,6 +33,28 @@ export const UsersPage = () => {
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
 
+    const { setAppBarSettings, resetAppBar } = useAppBarState();
+
+    useEffect(() => {
+        setAppBarSettings((prevState) => ({
+            ...prevState,
+            backgroundColor: "rgb(48, 48, 48)",
+            menuIconColor: "rgba(255, 255, 255, 0.56)",
+            showIconButton: true,
+            title: "Users Management",
+            subtitle: true,
+            height: "74px",
+            margin: "24px 0",
+            titleTypography: "h1",
+            alignSelf: "flex-start",
+            borderBottom: "none",
+        }));
+
+        return () => {
+            resetAppBar();
+        };
+    }, [setAppBarSettings, resetAppBar]);
+
     useEffect(() => {
         fetch(URL)
             .then((response) => response.json())
@@ -53,7 +75,6 @@ export const UsersPage = () => {
 
     return (
         <div>
-            <Typography variant="h1">Users Management</Typography>
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error</div>}
             {!isLoading && !isError && users !== null && (

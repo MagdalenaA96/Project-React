@@ -11,14 +11,10 @@ import {
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-
 import PropTypes from "prop-types";
+
+import { MyAppBar } from "../components/MyAppBar";
+import { AppBarContextProvider } from "../contexts/appBarContext/AppBarContextProvider";
 
 let theme = createTheme({
     palette: {
@@ -36,13 +32,14 @@ let theme = createTheme({
         },
     },
     typography: {
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         h1: {
             color: "rgb(255, 255, 255)",
             fontSize: 34,
             fontWeight: 400,
             letterSpacing: 0.25,
             lineHeight: 1.235,
-            marginBottom: 24,
+            marginBottom: 8,
         },
         h2: {
             color: "rgb(255, 255, 255)",
@@ -52,6 +49,22 @@ let theme = createTheme({
             lineHeight: 1.334,
             textAlign: "center",
         },
+        h3: {
+            color: "rgba(255,255,255, 0.87)",
+            fontSize: 20,
+            fontWeight: 500,
+            letterSpacing: 0.15,
+            lineHeight: 1.6,
+            textAlign: "left",
+        },
+        h4: {
+            color: "rgba(255,255,255, 0.7)",
+            fontSize: 16,
+            fontWeight: 400,
+            letterSpacing: 0.15,
+            lineHeight: 1.5,
+            textAlign: "left",
+        }
     },
 
     components: {
@@ -89,58 +102,36 @@ let theme = createTheme({
                 },
             },
         },
+
+         MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',  
+                },
+            },
+        },
     },
 });
 
 theme = responsiveFontSizes(theme);
 
-const MyAppBar = () => {
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar
-                position="static"
-                sx={{ backgroundColor: theme.palette.background.paper }}
-            >
-                <Toolbar variant="dense">
-                    <IconButton
-                        edge="start"
-                        aria-label="menu"
-                        sx={{ mr: 2, color: "rgb(255, 255, 255)" }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ color: "rgba(255, 255, 255, 0.87)" }}
-                    >
-                        My app
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    );
-};
-
-MyAppBar.propTypes = {
-    appBarProps: PropTypes.object,
-};
-
 export const ThemeProvider = ({ children }) => {
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <MyAppBar />
-            <Container
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100vh",
-                }}
-            >
-                {children}
-            </Container>
+            <AppBarContextProvider>
+                <MyAppBar />
+                <Container
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: "100vh",
+                    }}
+                >
+                    {children}
+                </Container>
+            </AppBarContextProvider>
         </MuiThemeProvider>
     );
 };

@@ -8,7 +8,7 @@ export const DashboardPage = () => {
     return (
         <StyledDiv>
             <Typography variant="h1" sx={{ marginBottom: "16px" }}>
-                Pick up
+                Pick Module
             </Typography>
             <FlexContainer>
                 <SingleDiv
@@ -49,4 +49,5 @@ const SingleDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;

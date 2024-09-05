@@ -23,7 +23,7 @@ export const ResetPage = () => {
 
     return (
         <StyledDiv>
-            <Typography variant="h1">Reset Password</Typography>
+            <Typography variant="h1" sx={{ marginBottom: "24px" }}>Reset Password</Typography>
             <Controller
                 name="email"
                 control={control}
