@@ -64,7 +64,7 @@ let theme = createTheme({
             letterSpacing: 0.15,
             lineHeight: 1.5,
             textAlign: "left",
-        }
+        },
     },
 
     components: {
@@ -103,10 +103,10 @@ let theme = createTheme({
             },
         },
 
-         MuiAppBar: {
+        MuiAppBar: {
             styleOverrides: {
                 root: {
-                    boxShadow: 'none',  
+                    boxShadow: "none",
                 },
             },
         },
@@ -120,17 +120,20 @@ export const ThemeProvider = ({ children }) => {
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
             <AppBarContextProvider>
-                <MyAppBar />
-                <Container
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100vh",
-                    }}
-                >
-                    {children}
-                </Container>
+                <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+                    <MyAppBar />
+                    <div style={{display: "flex", flex: 1,}}>
+                        <Container
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            {children}
+                        </Container>
+                    </div>
+                </div>
             </AppBarContextProvider>
         </MuiThemeProvider>
     );

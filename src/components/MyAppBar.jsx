@@ -23,7 +23,7 @@ export const MyAppBar = () => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, margin: appBarSettings.margin }}>
+        <Box sx={{ margin: appBarSettings.margin }}>
             <AppBar
                 position="static"
                 sx={{
@@ -57,7 +57,6 @@ export const MyAppBar = () => {
                         sx={{
                             display: "flex",
                             flexDirection: "column",
-                            flexGrow: 1,
                         }}
                     >
                         <Typography
