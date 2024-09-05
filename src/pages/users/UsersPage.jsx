@@ -74,7 +74,7 @@ export const UsersPage = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{ height: "100%" }}>
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error</div>}
             {!isLoading && !isError && users !== null && (
@@ -91,6 +91,29 @@ export const UsersPage = () => {
                         hideFooter
                         disableExtendRowFullWidth
                         autoHeight
+                        sx={{
+                            "& .MuiDataGrid-row": {
+                                backgroundColor: "rgba(255,255,255,0.08)",
+                                "&:hover": {
+                                    backgroundColor:
+                                        "rgba(144, 202, 249, 0.17)",
+                                },
+                            },
+                            "& .MuiDataGrid-row.Mui-selected": {
+                                backgroundColor: "rgba(144, 202, 249, 0.17)",  
+                            },
+                            "& .MuiDataGrid-columnHeader": {
+                                backgroundColor: "rgba(255,255,255,0.08)",
+                            },
+
+                            "& .MuiDataGrid-checkboxInput": {
+                                color: "white",
+                                "&:checked": { color: "blue" },
+                            },
+                            "& .Mui-checked": {
+                                color: "primary.main"
+                            },
+                        }}
                     />
                 </div>
             )}
