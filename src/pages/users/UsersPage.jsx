@@ -1,17 +1,35 @@
 import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import styled from "@emotion/styled";
 import { useAppBarState } from "../../contexts/appBarContext/useAppBarState";
+import Avatar from "@mui/material/Avatar";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const URL = "https://jsonplaceholder.typicode.com/users";
 const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", width: 297.75 },
     {
         field: "avatar",
         headerName: "Avatar",
         width: 100,
         sortable: false,
         filterable: false,
+        renderCell: (params) => (
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                }}
+            >
+                <Avatar
+                    {...params.row.avatarProps}
+                    sx={{
+                        backgroundColor: "rgba(255, 255, 255, 0.28)",
+                        color: "black",
+                    }}
+                />
+            </div>
+        ),
     },
     { field: "firstName", headerName: "First name", width: 297.75 },
     { field: "lastName", headerName: "Last name", width: 297.75 },
@@ -26,8 +44,16 @@ const columns = [
         width: 100,
         sortable: false,
         filterable: false,
+        renderCell: (params) => params.row.action,
     },
 ];
+
+function stringAvatar(name) {
+    return {
+        children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    };
+}
+
 export const UsersPage = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -41,7 +67,7 @@ export const UsersPage = () => {
             backgroundColor: "rgb(48, 48, 48)",
             menuIconColor: "rgba(255, 255, 255, 0.56)",
             showIconButton: true,
-            title: "Users Management",
+            title: "Users management",
             subtitle: true,
             height: "74px",
             margin: "24px 0",
@@ -53,7 +79,7 @@ export const UsersPage = () => {
         return () => {
             resetAppBar();
         };
-    }, [setAppBarSettings, resetAppBar]);
+    }, []);
 
     useEffect(() => {
         fetch(URL)
@@ -61,11 +87,20 @@ export const UsersPage = () => {
             .then((data) => {
                 const formattedData = data.map((user) => ({
                     id: user.id,
-                    avatar: "",
+                    avatarProps: stringAvatar(user.name),
                     firstName: user.name.split(" ")[0],
                     lastName: user.name.split(" ")[1],
                     email: user.email,
-                    action: "icon",
+                    action: (
+                        <MoreVertIcon
+                            style={{
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                color: "rgba(255, 255, 255, 0.6)"
+                            }}
+                        />
+                    ),
                 }));
                 setUsers(formattedData);
             })
@@ -79,9 +114,10 @@ export const UsersPage = () => {
             {isError && <div>Error</div>}
             {!isLoading && !isError && users !== null && (
                 <div style={{ width: "100%" }}>
-                    <StyledDataGrid
+                    <DataGrid
                         rows={users}
                         columns={columns}
+                        rowHeight={72}
                         initialState={{
                             pagination: {
                                 paginationModel: { pageSize: 10 },
@@ -92,27 +128,58 @@ export const UsersPage = () => {
                         disableExtendRowFullWidth
                         autoHeight
                         sx={{
+                            width: "100%",
+                            border: "none",
+                            "--DataGrid-rowBorderColor":
+                                "rgba(255, 255, 255, 0.15)",
+                            "& .MuiDataGrid-rowHeight": { height: "72px" },
                             "& .MuiDataGrid-row": {
                                 backgroundColor: "rgba(255,255,255,0.08)",
+                                color: "rgba(255,255,255, 1)",
+                                fontWeight: "400",
+                                letterSpacing: "0.15px",
                                 "&:hover": {
                                     backgroundColor:
                                         "rgba(144, 202, 249, 0.17)",
                                 },
                             },
                             "& .MuiDataGrid-row.Mui-selected": {
-                                backgroundColor: "rgba(144, 202, 249, 0.17)",  
+                                backgroundColor: "rgba(144, 202, 249, 0.17)",
                             },
                             "& .MuiDataGrid-columnHeader": {
                                 backgroundColor: "rgba(255,255,255,0.08)",
                             },
-
+                            "& .MuiDataGrid-columnHeaderTitle": {
+                                color: "rgb(255, 255, 255)",
+                                fontWeight: "500",
+                                letterSpacing: "0.17px",
+                            },
+                            
                             "& .MuiDataGrid-checkboxInput": {
-                                color: "white",
-                                "&:checked": { color: "blue" },
+                                color: "rgba(255,255,255,0.7)",
                             },
-                            "& .Mui-checked": {
-                                color: "primary.main"
+                            // "& .Mui-checked": {
+                            //     color: "primary.main",
+                            // },
+                            "& .MuiDataGrid-cell": {
+                                // border: "none !important",
                             },
+                            "& [data-testid='TripleDotsVerticalIcon']": {
+                                fill: "rgba(255, 255, 255, 0.5)",
+                            },
+                            "& [data-testid='ArrowUpwardIcon']": {
+                                fill: "rgba(255, 255, 255, 0.5)",
+                            },
+                            // "& .MuiSvgIcon-root": {
+                            //     fill: "rgba(255, 255, 255, 0.6)", 
+                            // },
+                            // "& [data-testid='CheckBoxIcon']": {
+                            //     color: "primary.main !important", 
+                            //     fill: "primary.main !important", 
+                            // },
+                            // "& .Mui-checked": {
+                            //     color: "primary.main !important", 
+                            // },
                         }}
                     />
                 </div>
@@ -120,12 +187,3 @@ export const UsersPage = () => {
         </div>
     );
 };
-
-const StyledDataGrid = styled(DataGrid)({
-    "& .MuiDataGrid-cell": {
-        color: "rgb(255, 255, 255)",
-    },
-    "& .MuiDataGrid-columnHeaderTitle": {
-        color: "rgb(255, 255, 255)",
-    },
-});

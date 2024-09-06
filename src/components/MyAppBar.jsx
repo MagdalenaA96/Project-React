@@ -57,6 +57,7 @@ export const MyAppBar = () => {
                         sx={{
                             display: "flex",
                             flexDirection: "column",
+                            flexGrow: 1,
                         }}
                     >
                         <Typography
@@ -87,6 +88,7 @@ export const MyAppBar = () => {
                             style={{
                                 display: "flex",
                                 alignSelf: "flex-start",
+                                justifyContent: "flex-end"
                             }}
                         >
                             <IconButton
