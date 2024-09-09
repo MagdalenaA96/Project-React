@@ -123,7 +123,14 @@ export const UsersPage = () => {
     }, []);
 
     return (
-        <div style={{ height: "100%" }}>
+        <div
+            style={{
+                height: "100%",
+                display: "flex",
+                width: "100vw",
+                padding: "0 24px",
+            }}
+        >
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error</div>}
             {!isLoading && !isError && users !== null && (
