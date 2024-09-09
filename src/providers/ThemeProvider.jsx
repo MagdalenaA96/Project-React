@@ -120,9 +120,15 @@ export const ThemeProvider = ({ children }) => {
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
             <AppBarContextProvider>
-                <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+                <div
+                    style={{
+                        height: "100vh",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
                     <MyAppBar />
-                    <div style={{display: "flex", flex: 1,}}>
+                    <div style={{ display: "flex", flex: 1 }}>
                         <Container
                             sx={{
                                 display: "flex",

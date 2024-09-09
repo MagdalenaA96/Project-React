@@ -37,6 +37,20 @@ const columns = [
         field: "email",
         headerName: "E-mail",
         width: 297.75,
+        renderCell: (params) => (
+            <div
+                style={{
+                    display: "inline-block",
+                    lineHeight: "1.2",
+                    height: "auto",
+                    padding: "4px 12px",
+                    backgroundColor: "rgba(255, 255, 255, 0.16)",
+                    borderRadius: "16px",
+                }}
+            >
+                {params.value}
+            </div>
+        ),
     },
     {
         field: "action",
@@ -97,7 +111,7 @@ export const UsersPage = () => {
                                 height: "100%",
                                 display: "flex",
                                 alignItems: "center",
-                                color: "rgba(255, 255, 255, 0.6)"
+                                color: "rgba(255, 255, 255, 0.6)",
                             }}
                         />
                     ),
@@ -154,32 +168,14 @@ export const UsersPage = () => {
                                 fontWeight: "500",
                                 letterSpacing: "0.17px",
                             },
-                            
+
                             "& .MuiDataGrid-checkboxInput": {
                                 color: "rgba(255,255,255,0.7)",
                             },
-                            // "& .Mui-checked": {
-                            //     color: "primary.main",
-                            // },
-                            "& .MuiDataGrid-cell": {
-                                // border: "none !important",
-                            },
-                            "& [data-testid='TripleDotsVerticalIcon']": {
-                                fill: "rgba(255, 255, 255, 0.5)",
-                            },
-                            "& [data-testid='ArrowUpwardIcon']": {
-                                fill: "rgba(255, 255, 255, 0.5)",
-                            },
-                            // "& .MuiSvgIcon-root": {
-                            //     fill: "rgba(255, 255, 255, 0.6)", 
-                            // },
-                            // "& [data-testid='CheckBoxIcon']": {
-                            //     color: "primary.main !important", 
-                            //     fill: "primary.main !important", 
-                            // },
-                            // "& .Mui-checked": {
-                            //     color: "primary.main !important", 
-                            // },
+                            "& [data-testid='TripleDotsVerticalIcon'], & .MuiDataGrid-sortIcon":
+                                {
+                                    fill: "rgba(255, 255, 255, 0.5)",
+                                },
                         }}
                     />
                 </div>

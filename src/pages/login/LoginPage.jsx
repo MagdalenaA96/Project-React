@@ -13,11 +13,11 @@ const defaultValues = {
 };
 
 export const LoginPage = () => {
-    const {setUser, error, setError} = useUserStore((state) => ({
+    const { setUser, error, setError } = useUserStore((state) => ({
         setUser: state.setUser,
         error: state.error,
-        setError: state.setError
-    }))
+        setError: state.setError,
+    }));
     const navigate = useNavigate();
 
     const { control, handleSubmit, formState } = useForm({
@@ -28,19 +28,18 @@ export const LoginPage = () => {
     const { isValid, isDirty } = formState;
 
     const simulateLogin = (email, password) => {
-            return Math.random() > 0.2;
-        };
+        return Math.random() > 0.2;
+    };
 
     const onLogin = (formData) => {
         const loginSuccess = simulateLogin(formData.email, formData.password);
 
         if (loginSuccess) {
             setUser(formData.email);
-        navigate("/dashboard");
+            navigate("/dashboard");
         } else {
-            setError("Something went wrong... Try again.")
+            setError("Something went wrong... Try again.");
         }
-        
     };
 
     return (
@@ -112,7 +111,14 @@ export const LoginPage = () => {
                     </Box>
                 )}
             />
-            {error && <Typography color="error" sx={{display: "flex", justifyContent: "center"}}>{error}</Typography>}
+            {error && (
+                <Typography
+                    color="error"
+                    sx={{ display: "flex", justifyContent: "center" }}
+                >
+                    {error}
+                </Typography>
+            )}
             <StyledButton
                 variant={"contained"}
                 onClick={handleSubmit(onLogin)}

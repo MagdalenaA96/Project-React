@@ -25,7 +25,9 @@ export const AppBarContextProvider = ({ children }) => {
     };
 
     return (
-        <AppBarContext.Provider value={{ appBarSettings, setAppBarSettings, resetAppBar }}>
+        <AppBarContext.Provider
+            value={{ appBarSettings, setAppBarSettings, resetAppBar }}
+        >
             {children}
         </AppBarContext.Provider>
     );

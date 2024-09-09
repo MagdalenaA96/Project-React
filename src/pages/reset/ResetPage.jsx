@@ -23,7 +23,9 @@ export const ResetPage = () => {
 
     return (
         <StyledDiv>
-            <Typography variant="h1" sx={{ marginBottom: "24px" }}>Reset Password</Typography>
+            <Typography variant="h1" sx={{ marginBottom: "24px" }}>
+                Reset Password
+            </Typography>
             <Controller
                 name="email"
                 control={control}
@@ -36,7 +38,7 @@ export const ResetPage = () => {
                 }}
                 render={({ field, fieldState }) => (
                     <Box
-                        component="form"    
+                        component="form"
                         sx={{
                             "& > :not(style)": { width: "100%" },
                         }}

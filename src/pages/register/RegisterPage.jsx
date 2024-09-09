@@ -37,7 +37,9 @@ export const RegisterPage = () => {
 
     return (
         <StyledDiv>
-            <Typography variant="h1" sx={{ marginBottom: "24px" }}>Sign Up</Typography>
+            <Typography variant="h1" sx={{ marginBottom: "24px" }}>
+                Sign Up
+            </Typography>
             <Controller
                 name="email"
                 control={control}

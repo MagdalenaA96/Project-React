@@ -88,7 +88,7 @@ export const MyAppBar = () => {
                             style={{
                                 display: "flex",
                                 alignSelf: "flex-start",
-                                justifyContent: "flex-end"
+                                justifyContent: "flex-end",
                             }}
                         >
                             <IconButton
